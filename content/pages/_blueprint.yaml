@@ -1,0 +1,4 @@
+title: Pages
+path: /{base}/
+localization:
+  path: /{locale}/{base}/

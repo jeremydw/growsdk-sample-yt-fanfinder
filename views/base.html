@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script>
+      for(var a=["article","footer","nav","figure","figcaption"],b=0;b<a.length;b++)document.createElement(a[b]);window._gaq=window._gaq||[];
+    </script>
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,300,400,600,700&amp;lang=en" rel="stylesheet">
+    {% if doc.locale.is_rtl %}
+      <link href="//www.youtube.com/yt/css/www-fanfinder-rtl.css" rel="stylesheet">
+    {% else %}
+      <link href="//www.youtube.com/yt/css/www-fanfinder.css" rel="stylesheet">
+    {% endif %}
+    <link rel="shortcut icon" href="//www.youtube.com/favicon.ico">
+    <title>
+      {{_(doc.title)}} – {{_(podspec.title)}}
+    </title>
+    <meta content="" name="description">
+    <meta content="YouTube" name="author">
+    <body class="{{doc.locale.direction}} yt-cardified" dir="{{doc.locale.direction}}">
+      <div id="page">
+
+        <div id="masthead-container">
+          <div id="masthead">
+            <div id="masthead-root">
+              <a href="//www.youtube.com/" id="masthead-logo" title="{{_('YouTube home')}}"><img alt="{{_('YouTube home')}}" src="//www.youtube.com/yt/img/logo_hh.png"></a>
+              <form action="//www.youtube.com/results" autocomplete="on" class="search-form" id="masthead-search" method="get" name="masthead-search">
+                <button aria-pressed="false" class="search-button yt-uix-button yt-uix-button-default" dir="{{doc.locale.direction}}" id="search-btn" role="button" tabindex="2" type="submit"><span class="yt-uix-button-content">{{_('Search')}}</span></button>
+                <label id="masthead-search-term"><input class="search-term" name="search_query" tabindex="1" title="{{_('Search')}}" type="text" value=""></label>
+              </form>
+              <div id="masthead-utility">
+                <a class="yt-uix-button yt-uix-button-default" href="//www.youtube.com/my_videos_upload"><span class="yt-uix-button-content">{{_('Upload')}}</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {% block main %}
+        {% endblock %}
+
+      </div>
+      <div id="footer-container">
+        <div id="footer-main">
+          <span id="footer-logo">
+            <a href="/"><img alt="{{_('YouTube home')}}" src="//www.youtube.com/yt/img/logo_hh.png"></a>
+          </span>
+          <button class="yt-uix-button yt-uix-button-default" id="footer-language-selector-button">
+            {% set lang_name = doc.locale.get_display_name(doc.locale) %}
+            <span class="yt-uix-button-content">{{_('Language: %(lang)s', lang=lang_name)}}</span>
+          </button>
+          <div class="yt-hide yt-tile-static yt-grid-box" id="footer-language-selector">
+            <ul>
+              {% set num_locales = doc.locales|length %}
+              {% for locale in doc.locales %}
+                {% if loop.index == ((num_locales/2)|int + 3) %}</ul><ul>{% endif %}
+                <li dir="{{locale.direction}}">
+                  {% if doc.locale == locale %}
+                    <strong>{{locale.get_display_name(locale)}}</strong>
+                  {% else %}
+                    <a href="{{g.doc(doc.pod_path, locale=locale).url.path}}">{{locale.get_display_name(locale)}}</a>
+                  {% endif %}
+                {% endfor %}
+            </ul>
+          </div>
+        </div>
+        <div id="footer-secondary">
+          <ul class="footer-primary-info">
+            <li><a href="/yt/about/">{{_('About')}}</a>
+            <li><a href="/yt/press/">{{_('Press')}}</a>
+            <li><a href="/yt/copyright/">{{_('Copyright')}}</a>
+            <li><a href="/yt/creators/">{{_('Creators')}}</a>
+            <li><a href="/yt/advertise/">{{_('Advertise')}}</a>
+            <li><a href="/yt/dev/">{{_('Developers')}}</a>
+            <li><a href="//support.google.com/youtube">{{_('Help')}}</a>
+            <li><a href="//plus.google.com/+youtube">{{_('+YouTube')}}</a>
+          </ul>
+          <ul class="footer-secondary-info">
+            <li><a href="/t/terms">{{_('Terms')}}</a>
+            <li><a href="/yt/policyandsafety/">{{_('Policy and Safety')}}</a>
+            <li><a href="//www.google.com/policies/privacy/">{{_('Privacy')}}</a>
+            <li><a href="/testtube">{{_('Try something new!')}}</a>
+          </ul>
+        </div>
+      </div>
+    <script src="//www.youtube.com/yt/js/www-goro.min.js"></script>
+    <script>
+      yt.goro.core.analytics.push(
+        ['_setAccount', 'UA-38810586-1'],
+        ['_trackPageview']
+      );
+    </script>
+    <script src="//www.youtube.com/yt/js/www-fanfinder.min.js"></script>

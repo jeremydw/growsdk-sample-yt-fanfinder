@@ -1,0 +1,177 @@
+{% extends "/views/base.html" %}
+
+{% block main %}
+<div id="yt-microsite">
+
+  <div id="yt-main-nav-container">
+    <nav id="yt-main-nav"></nav>
+  </div>
+  <div class="yt-fanfinder-header-container yt-fanfinder-hero-img">
+    <div class="yt-fanfinder-header-text-container">
+      <div class="yt-fanfinder-header-text-cell">
+        <h1 class="yt-fanfinder-header-title">{{_(doc.title)}}</h1>
+      </div>
+    </div>
+  </div>
+  <div id="yt-microsite-features">
+
+    <div class="yt-fanfinder-home-content-top-container">
+      {% set top_card = doc.top_cards[0] %}
+      <div class="yt-fanfinder-home-content-top">
+        <div class="yt-card-light yt-js-card yt-card-relative yt-fanfinder-getting-started-card yt-card-no-animate">
+          <div class="yt-card-content yt-js-card-content">
+            <div class="yt-card-content-container yt-js-card-content-container">
+              <h2 class="yt-card-title">{{_(top_card.title)}}</h2>
+              <div class="yt-card-text"><p>{{_(top_card.text)}}</p></div>
+            </div>
+          </div>
+          <div class="yt-fanfinder-submit-ad-btn-container">
+            <div class="yt-fanfinder-submit-ad">
+              <div class="yt-fanfiner-submit-add-btn-cell">
+                <a class="yt-uix-button yt-uix-button-primary" href="//youtube.com/fan_finder"><span class="yt-uix-button-content">{{_('Get started')}}</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="yt-fanfinder-dual-top-cards-container">
+        {% for card in doc.top_cards[1:] %}
+        <div class="yt-card-light yt-js-card yt-card-relative yt-card-no-animate {{card.class_name}}">
+          <img alt="{{_(card.title)}}" class="yt-card-full-bleed-image top" src="{{card.image}}">
+          <div class="yt-card-content yt-js-card-content yt-fanfinder-matching-card-content">
+            <div class="yt-card-content-container yt-js-card-content-container">
+              <h2 class="yt-card-title">{{_(card.title)}}</h2>
+              <div class="yt-card-text"><p>{{_(card.text)}}</div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="yt-fanfinder-home-content-bottom-container">
+      <div class="yt-js-showcase-bg-img-container">
+        {% for ad in doc.featured_ads %}
+          <div class="yt-js-showcase-bg-img-item yt-showcase-bg-img-item yt-fanfinder-featured-ads-{{ad.key}}-bg {% if not loop.first %}yt-showcase-hidden{% endif %}"></div>
+        {% endfor %}
+      </div>
+      <div class="yt-showcase-content-container yt-fanfinder-home-content-bottom">
+        <div class="yt-js-showcase-container">
+          <h2 class="yt-showcase-title">{{_('Explore current Fan Finder ads')}}</h2>
+          
+          {% for ad in doc.featured_ads %}
+            <div class="yt-card-light yt-js-card yt-js-showcase-card yt-showcase-card yt-card-no-animate
+            {% if not loop.first %}yt-showcase-move-offscreen{% endif %}
+            {% if loop.first %}yt-card-relative{% endif %}
+            ">
+              <div class="yt-card-video-relative">
+                <div class="yt-card-video yt-js-video yt-card-full-bleed-image top" data-video-height="361" data-video-player-vars='{"modestbranding": 1, "wmode": "opaque", "showinfo": 0, "autohide": 1, "controls": 1}' data-video-video-id="{{ad.video_id}}" data-video-width="642" id="yt-fanfinder-featured-ads-video-{{loop.index}}"></div>
+              </div>
+              <div class="yt-card-content yt-js-card-content yt-showcase-card-content">
+                <div class="yt-card-content-container yt-js-card-content-container yt-showcase-card-content-container">
+                  <div class="yt-fanfinder-featured-ads-channel-desc">
+                    <div class="yt-fanfinder-featured-ads-card-title">{{_('What makes this ad effective?')}}</div>
+                    <div class="yt-fanfinder-featured-ads-channel-desc-body"><p>{{_(ad.text)}}</div>
+                  </div>
+                  <div class="yt-fanfinder-featured-ads-channel-info">
+                    <img alt="{{_('%(name)s avatar', name=ad.title)}}" src="{{_(ad.image)}}">
+                    <div class="yt-fanfinder-featured-ads-channel-info-content">
+                      <div class="yt-fanfinder-featured-ads-card-title-container">
+                        <div class="yt-fanfinder-featured-ads-card-top-title">
+                          {{_(ad.title)}}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+          
+          <div class="yt-js-carousel-container yt-showcase-carousel-container" data-carousel-autostart="false" data-carousel-locale="{{doc.locale}}">
+            <div class="yt-fanfinder-featured-ads-title-an-nav-container">
+              <div class="yt-fanfinder-featured-ads-carousel-title">{{_('Fan Finder ad examples')}}</div>
+              <div class="yt-js-carousel-nav yt-showcase-carousel-nav-group">
+                <div class="yt-js-carousel-nav-item yt-showcase-carousel-nav-left" data-carousel-action="prev"></div>
+                <div class="yt-js-carousel-nav-item yt-showcase-carousel-nav-right" data-carousel-action="next"></div>
+              </div>
+            </div>
+            <div class="yt-js-carousel yt-js-showcase-carousel yt-showcase-carousel">
+              <div class="yt-js-carousel-item yt-showcase-carousel-item-container">
+                {% for ad in doc.featured_ads %}
+                  {% if loop.index == 5 %}
+                    </div>
+                    <div class="yt-js-carousel-item yt-showcase-carousel-item-container">
+                  {% endif %}
+                  <div class="yt-js-showcase-carousel-item yt-showcase-carousel-item
+                    {% if loop.first %}yt-selected{% endif %}
+                    {% if not loop.first %}yt-showcase-carousel-item-positioning{% endif %}
+                    " data-nav-action="{{loop.index}}">
+                    <div class="yt-fanfinder-featured-ads-carousel-item-{{ad.key}}-bw yt-js-showcase-bw {% if loop.first %}yt-showcase-carousel-hidden{% endif %}"></div>
+                    <div class="yt-fanfinder-featured-ads-carousel-item-{{ad.key}}-color yt-showcase-carousel-item-color yt-js-showcase-color {% if not loop.first %}yt-showcase-carousel-hidden{% endif %}">
+                    </div>
+                    <span class="yt-showcase-carousel-item-text">{{ad.title}}</span>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="yt-fanfinder-creating-ad-info-container">
+          <div class="yt-card-light yt-js-card yt-card-relative yt-fanfinder-creating-ad-info-card yt-card-no-animate">
+            <div class="yt-card-content yt-js-card-content">
+              <div class="yt-card-content-container yt-js-card-content-container">
+                <h2 class="yt-card-title yt-fanfinder-creating-ad-info-card-title">{{_('Channel ad best practices')}}</h2>
+                <div class="yt-card-text">
+                  {% for item in doc.best_practices %}
+                  <div class="
+                    yt-fanfinder-creating-ad-col
+                    {% if loop.first %}left-col{% endif %}
+                    {% if loop.last %}right-col{% endif %}
+                    ">
+                    <img alt="{{_(item.title)}}" src="{{item.image}}">
+                    <div class="yt-fanfinder-creating-ad-info-title"><p>{{_(item.title)}}</div>
+                    <div class="yt-fanfinder-creating-ad-info-body"><p>{{_(item.text)}}</div>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="yt-fanfinder-ready-to-submit-card-container">
+          <div class="yt-card-light yt-js-card yt-card-relative yt-fanfinder-ready-to-submit-card yt-card-no-animate">
+            <div class="yt-card-content yt-js-card-content">
+              <div class="yt-card-content-container yt-js-card-content-container">
+                <div class="yt-fanfinder-card-content-cell">
+                  <h2 class="yt-card-title">{{_('Ready to submit your channel ad?')}}</h2>
+                  <div class="yt-card-text"><p>{{_('Great! Submit your ad to Fan Finder here.')}}</div>
+                    <a class="yt-uix-button yt-uix-button-primary" href= "//youtube.com/fan_finder"><span class="yt-uix-button-content">{{_('Submit your channel ad')}}</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="yt-fanfinder-help-tools-card-container">
+          <div class="yt-card-dark yt-js-card yt-card-relative yt-fanfinder-help-tools-card yt-card-no-animate">
+            <div class="yt-card-content yt-js-card-content yt-fanfinder-help-tools-content-container">
+              <div class="yt-card-content-container yt-js-card-content-container">
+                <h2 class="yt-card-title">{{_('More helpful tools')}}</h2>
+                <div class="yt-card-text">
+                  <ul>
+                    <li><a href="/yt/fanfinder/media/pdfs/yt-fanfinder-interactive-curriculum-booklet.pdf">{{_('How to create a channel ad curriculum booklet')}}</a>
+                    <li><a href="//www.youtube.com/watch?v=Sqfv7m-aZuA">{{_('How to create a channel ad video')}}</a>
+                    <li><a href="//support.google.com/youtube/answer/2801888">{{_('Fan Finder Help Center')}}</a>
+                    <li><a href="/yt/playbook/promotion.html">{{_('Fan Finder in the YouTube Playbook')}}</a>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
