@@ -1,4 +1,4 @@
-# yt-fanfinder
+# growsdk-sample-yt-fanfinder
 
 This is a sample project sample that illustrates how one could recreate the
 YouTube Fan Finder web site (http://www.youtube.com/yt/fanfinder/) in the Grow SDK.
